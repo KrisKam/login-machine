@@ -9,12 +9,13 @@ function App() {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     if (name === 'username') {
-      send('')
+      send({type: 'ENTER_USERNAME', username: value})
     }
     if (name === 'password') {
-      send('')
+      send({type: 'ENTER_PASSWORD', password: value})
     }
-  }
+  } 
+  console.log('current:', current)
 
   return (
     <div className="App">
@@ -27,7 +28,7 @@ function App() {
         id="username"
         type="text"
         name="username"
-        value={current.context.username}
+        value={''}
         onChange={handleChange}
       />
       </div>
@@ -38,7 +39,7 @@ function App() {
         id="password"
         type="text"
         name="password"
-        value={current.context.password}
+        value={''}
         onChange={handleChange}
       />
       </div>

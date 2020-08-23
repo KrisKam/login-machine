@@ -1,7 +1,12 @@
-import {Machine} from 'xstate';
+import {Machine, assign, AnyEventObject} from 'xstate';
 
-const loginMachine = Machine({
-  id: 'loginMachine',
+interface LoginMachineContext {
+  username: string;
+  password: string;
+}
+
+const loginMachine = Machine<any>({
+  id: 'practiceLogin',
   initial: 'logged_out',
   context: {
     username: '',
@@ -15,6 +20,19 @@ const loginMachine = Machine({
     },
     logging_in: {
       on: {
+        'ENTER_USERNAME': {
+          actions: assign({
+            username: (ctx: any, e: AnyEventObject) => {
+              console.log(ctx);
+              return {username: e.username}
+            }
+          })
+        },
+        'ENTER_PASSWORD': {
+          actions: assign({
+            password: (ctx: any, e: AnyEventObject) => {
+            return {password: e.password}}
+        })},
         'SUBMIT': 'validation'
       }
     },
